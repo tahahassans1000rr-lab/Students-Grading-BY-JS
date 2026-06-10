@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Students Grading JS.css">
+</head>
+<body>
+    <h1>Students Grading BY JS</h1>
+
+    <input type="text" id="name" placeholder="Name">
+    <input type="number" id="marks" placeholder="Marks">
+
+    <button onclick="addStudent()">Add Grade</button>
+
+    <div id="output"></div>
+
+    <script>
+        let students = [];
+        let getGrade = (marks) => {
+            if (marks >= 80) return"A";
+            else if (marks >= 70) return"B";
+            else if (marks >= 0) return"c";
+            else return "F";
+        };
+    
+        let addStudent = () => {
+            let name = document.getElementById("name").value;
+            let marks = Number(document.getElementById("marks").value);
+
+            if(name ==="" || document.getElementById("marks").value === ""){
+                alert("Fill all the Fields")
+                return;
+            }
+
+            if(marks > 100 || marks < 0){
+                alert("Marks Must be B/W 0-100");
+                return;
+            }
+
+            let grade = getGrade(marks);
+            students.push({ name, marks, grade});
+            displayStudents();
+
+            document.getElementById("name").value = "";
+            document.getElementById("marks").value = "";
+        };
+
+        let displayStudents = () =>{
+            let output = document.getElementById("output");
+            output.innerHTML ="";
+
+            students.forEach((s) => {
+                output.innerHTML += `
+                <div class="card">
+                    ${s.name} - ${s.marks} - Grade: ${s.grade}
+                    <span class="${s.marks >=50 ? "pass" : "fail"}">
+                    (${s.marks >= 50 ? "PASS" : "FAIL"})
+                    </span>
+                </div>
+                `
+            }
+        )
+        }
+
+    </script>
+</body>
+</html>
